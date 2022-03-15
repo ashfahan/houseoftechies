@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+
+@import "./styles.scss";
+
+img {
+  display: inline-block;
+}
+
+.label {
+  @apply block relative;
+
+  + .label {
+    @apply mt-4;
+  }
+}
+
+.flex-grid {
+  @apply flex flex-wrap;
+
+  &.no-space .column {
+    &:first-child {
+      @apply pl-0;
+    }
+
+    &:last-child {
+      @apply pr-0;
+    }
+  }
+}
+
+.column {
+  flex: 1 0 0%;
+  @apply px-1;
+
+  &[class*=" w-"] {
+    @apply flex-none;
+  }
+}
+
+.icon {
+  width: 1em;
+  height: 1em;
+  display: inline-flex;
+  justify-content: center;
+  align-self: center;
+  padding: 0;
+  line-height: 1;
+}
+
+@tailwind utilities;

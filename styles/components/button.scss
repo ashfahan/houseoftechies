@@ -1,0 +1,189 @@
+@mixin button-features {
+  @apply inline-block justify-center py-3 px-7 border-2 border-transparent rounded text-center cursor-pointer select-none items-center transition-all relative outline-0 disabled:opacity-60 disabled:pointer-events-none;
+
+  // transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+  &.focus,
+  &:focus {
+    box-shadow: 0 0 0 0.25rem var(--tw-shadow-color);
+  }
+}
+
+@layer components {
+  .button-text {
+    @include button-features;
+  }
+
+  .button-fill {
+    @include button-features;
+
+    @apply text-white bg-gray-500 focus:shadow-gray-200; /* Default Styles */
+
+    &.button-primary {
+      @apply bg-primary text-white hover:bg-primary-dark focus:ring-primary-light focus:shadow-primary-lighter;
+    }
+    &.button-secondary {
+      @apply bg-secondary text-white hover:bg-secondary focus:ring-secondary focus:shadow-secondary;
+    }
+    &.button-white {
+      @apply bg-white text-black hover:bg-gray-200 focus:ring-white focus:shadow-gray-200;
+    }
+    &.button-green {
+      @apply bg-emerald-400 hover:bg-emerald-700 focus:ring-emerald-500 focus:shadow-emerald-200;
+    }
+    &.button-light {
+      @apply bg-gray-400 hover:bg-gray-500 focus:shadow-gray-200;
+    }
+    &.button-danger {
+      @apply bg-red-500 text-white hover:bg-red-600 focus:shadow-red-200;
+    }
+    &.button-dark {
+      @apply bg-gray-800 text-white hover:bg-gray-900 focus:shadow-gray-200;
+    }
+    &.button-danger-light {
+      @apply bg-red-100 text-red-400 hover:bg-red-200 focus:shadow-red-200;
+    }
+  }
+
+  .button-outline {
+    @include button-features;
+    @apply border-solid border-opacity-10 hover:border-opacity-50 focus:ring-current; /* Default Features Override */
+
+    @apply text-black border-black; /* Default Styles */
+  }
+
+  .button-outline-fill {
+    @include button-features;
+    @apply border-solid border-opacity-10 hover:bg-primary hover:text-white focus:ring-current; /* Default Features Override */
+
+    @apply text-black border-black; /* Default Styles */
+  }
+
+  .button-minimal {
+    @include button-features;
+    @apply border-r-0 border-l-0 px-[18px] shadow-none rounded-none border-b-gray-700;
+
+    // @apply before:content-[""] before:absolute before:right-0 before:-bottom-px before:left-0 before:scale-x-0 before:origin-bottom-right before:border-b-primary;
+
+    &::before {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: -1px;
+      left: 0;
+      transform: scaleX(0);
+      transform-origin: right;
+      border-bottom: 2px solid;
+      transition: transform 0.35s, border-bottom-color 0.2s ease-in-out;
+    }
+
+    &:hover,
+    &.focus,
+    &:focus {
+      color: #636363;
+
+      &::before {
+        border-bottom-color: #636363;
+      }
+    }
+
+    &:not([disabled]):not(:disabled) {
+      &:active {
+        color: #3c3c3c;
+
+        &::before {
+          border-bottom-color: #3c3c3c;
+        }
+      }
+    }
+
+    &.is-primary {
+      &:hover,
+      &.focus,
+      &:focus {
+        @apply text-primary;
+      }
+
+      &:hover::before,
+      &.focus::before,
+      &:focus::before {
+        @apply border-b-primary;
+      }
+
+      &:not([disabled]):not(:disabled) {
+        &:active {
+          @apply text-primary;
+
+          &::before {
+            @apply border-b-primary;
+          }
+        }
+      }
+    }
+
+    &:not([disabled]):not(:disabled) {
+      &:active::before {
+        animation: none;
+      }
+    }
+
+    &:hover::before,
+    &.focus::before,
+    &:focus::before {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    &:not([disabled]):not(:disabled) {
+      &:active::before {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+    }
+
+    &.focus,
+    &:focus {
+      -webkit-animation: none;
+      animation: none;
+      border-bottom-color: transparent;
+
+      &::before {
+        -webkit-animation: flash 1s ease-out both;
+        animation: flash 1s ease-out both;
+      }
+    }
+
+    &[disabled],
+    &:disabled {
+      color: #636363;
+
+      &::before {
+        border-bottom-color: #636363;
+      }
+    }
+  }
+
+  @-webkit-keyframes flash {
+    from,
+    50% {
+      opacity: 1;
+    }
+
+    25%,
+    75% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes flash {
+    from,
+    50% {
+      opacity: 1;
+    }
+
+    25%,
+    75% {
+      opacity: 0;
+    }
+  }
+}
